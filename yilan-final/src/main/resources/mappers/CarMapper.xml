@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duochuang.netty.mapper.CarMapper">
+    <select id="queryCar"
+            resultType="java.util.Map">
+        select
+            (@i:=@i+1) num,id,name,code,date,createTime from car,(SELECT @i:=0) as i
+        where name like concat('%',#{nameOrCode},'%') or code=#{nameOrCode} order by date desc
+    </select>
+    <select id="queryCarByName" resultType="java.util.Map">
+        select (@i:=@i+1) num,id,name,code,date,createTime from car,(SELECT @i:=0) as i
+        where name=#{nameOrCode} or code=#{nameOrCode} order by date desc
+    </select>
+
+</mapper>
